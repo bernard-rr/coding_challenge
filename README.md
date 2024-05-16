@@ -13,8 +13,9 @@
   - [Data Cleaning](#data-cleaning)
   - [Model Training](#model-training)
 - [Results](#results)
+- [Detailed Use](#detailed-use)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Introduction
 
@@ -110,6 +111,65 @@ print(classification_report(y_test, y_pred))
 print(confusion_matrix(y_test, y_pred))
 print("ROC AUC Score:", roc_auc_score(y_test, classifier.predict_proba(X_test), multi_class='ovr'))
 ```
+
+## Detailed Use
+
+### Setup
+
+1. Clone this repository to your local machine.
+2. Install the required Python packages using pip:
+   ```sh
+   pip install -r requirements.txt
+   ```
+3. The pre-trained model and necessary files should be available your project directory:
+   - `vectorizer.pkl`: The pre-trained TF-IDF vectorizer.
+   - `classifier_model.pkl`: The pre-trained RandomForestClassifier model.
+
+### How to Run the Model on New Comments - Step-by-Step Instructions
+
+
+1. **Prepare the CSV File**: Ensure you have a CSV file containing the new comments you wish to classify. The CSV file should have a column named `comments` that contains the text of the comments.
+
+2. **Load the Pre-trained Model and Vectorizer**: The script will load the pre-trained TF-IDF vectorizer and RandomForestClassifier model from the pickle files.
+
+3. **Run the Script to Classify New Comments**: Use the following script to classify the comments and view the results:
+
+   ```python
+   import pandas as pd
+   from sklearn.feature_extraction.text import TfidfVectorizer
+   from sklearn.ensemble import RandomForestClassifier
+   import joblib
+
+   # Load the pre-trained TF-IDF vectorizer and classifier model
+   vectorizer = joblib.load('vectorizer.pkl')
+   classifier = joblib.load('classifier_model.pkl')
+
+   # Read CSV file into a DataFrame
+   csv_file_path = 'path_to_your_csv.csv'  # Replace with the path to your CSV file
+   df = pd.read_csv(csv_file_path)
+
+   # Transform the comments using the loaded TF-IDF vectorizer
+   X_new = vectorizer.transform(df['comments'])
+
+   # Predict the labels using the loaded classifier
+   df['label'] = classifier.predict(X_new)
+
+   # Display the labeled DataFrame
+   print("Labeled comments data:")
+   print(df.head())
+
+   # Save the labeled DataFrame to a CSV file
+   output_file = "labeled_comments.csv"
+   df.to_csv(output_file, index=False)
+   print(f"Labeled comments saved to {output_file}")
+   ```
+
+   ### Execute the script to classify the comments:
+   ```sh
+   python classify_new_comments.py
+   ```
+
+
 
 ## Contributing
 
