@@ -1,5 +1,7 @@
 # Reddit Comments Classification
 
+### Access the Streamlit app here: [Reddit Comments Classifier](https://reddit-comment-classifier.streamlit.app/)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
