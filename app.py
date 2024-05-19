@@ -4,10 +4,10 @@ import joblib
 from sklearn.metrics import accuracy_score
 
 # Load the pre-trained TF-IDF vectorizer and classifier model
-vectorizer = joblib.load('vectorizer.pkl')
-classifier = joblib.load('classifier_model.pkl')
+vectorizer = joblib.load('vectorizer_u.pkl')
+classifier = joblib.load('classifier_model_u.pkl')
 
-st.title('Reddit Usernames Comments Classifier')
+st.title('Reddit Comments Classifier')
 
 st.write('Upload a CSV file with a column named `comments` and an optional `label` or `labels` column to classify the comments into categories: "Medical Doctor", "Veterinarian", or "Other". If a `label` or `labels` column is provided, the model will compare the predicted results with the actual labels and display an accuracy score.')
 
